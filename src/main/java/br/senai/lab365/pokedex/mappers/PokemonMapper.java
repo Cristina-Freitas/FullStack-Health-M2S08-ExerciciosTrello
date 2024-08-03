@@ -2,8 +2,13 @@ package br.senai.lab365.pokedex.mappers;
 
 import br.senai.lab365.pokedex.dto.PokemonCapturadoRequest;
 import br.senai.lab365.pokedex.dto.PokemonResponse;
+import br.senai.lab365.pokedex.dto.PokemonSummary;
 import br.senai.lab365.pokedex.dto.PokemonVistoRequest;
 import br.senai.lab365.pokedex.models.Pokemon;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PokemonMapper {
     private PokemonMapper() {
@@ -60,4 +65,27 @@ public class PokemonMapper {
         return target;
     }
 
+    public static PokemonSummary mapToSummary(Pokemon source) {
+        if (source == null) return null;
+
+        PokemonSummary target = new PokemonSummary();
+
+        target.setNumero(source.getNumero());
+        target.setNome(source.getNome());
+        target.setCapturado(source.isCapturado());
+
+        return target;
+    }
+
+    public static List<PokemonSummary> mapToSummary(List<Pokemon> source) {
+        if (source == null) return Collections.emptyList();
+
+        List<PokemonSummary> target = new ArrayList<>();
+
+        for (Pokemon pokemon : source) {
+            target.add(mapToSummary(pokemon));
+        }
+
+        return target;
+    }
 }

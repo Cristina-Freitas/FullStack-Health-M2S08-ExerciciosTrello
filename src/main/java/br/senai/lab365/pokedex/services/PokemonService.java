@@ -2,14 +2,16 @@ package br.senai.lab365.pokedex.services;
 
 import br.senai.lab365.pokedex.dto.PokemonCapturadoRequest;
 import br.senai.lab365.pokedex.dto.PokemonResponse;
+import br.senai.lab365.pokedex.dto.PokemonSummary;
 import br.senai.lab365.pokedex.dto.PokemonVistoRequest;
 import br.senai.lab365.pokedex.models.Pokemon;
 import br.senai.lab365.pokedex.repositories.PokemonRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import static br.senai.lab365.pokedex.mappers.PokemonMapper.map;
+import static br.senai.lab365.pokedex.mappers.PokemonMapper.mapToSummary;
 
 
 @Service
@@ -62,4 +64,10 @@ public class PokemonService {
 
         return map(pokemon);
     }
+
+    public List<PokemonSummary> lista() {
+        return mapToSummary(repository.findAll());
+    }
 }
+
+
