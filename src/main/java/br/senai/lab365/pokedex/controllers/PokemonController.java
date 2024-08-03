@@ -35,4 +35,12 @@ public class PokemonController {
     public void atualizaVisto(@Valid @RequestBody PokemonVistoRequest pokemonVistoRequest) {
         service.atualizaVisto(pokemonVistoRequest);
     }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void exclui(@PathVariable(name = "id") Integer numero) {
+        service.exclui(numero);
+    }
+
 }

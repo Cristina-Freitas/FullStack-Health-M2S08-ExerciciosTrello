@@ -48,5 +48,11 @@ public class PokemonService {
         repository.save(pokemon);
     }
 
-
+    public void exclui(Integer numero) {
+        if (repository.existsById(numero)) {
+            repository.deleteById(numero);
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
 }
