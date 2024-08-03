@@ -1,7 +1,10 @@
 package br.senai.lab365.pokedex.services;
 
+import br.senai.lab365.pokedex.dto.PokemonCapturadoRequest;
 import br.senai.lab365.pokedex.dto.PokemonVistoRequest;
+import br.senai.lab365.pokedex.models.Pokemon;
 import br.senai.lab365.pokedex.repositories.PokemonRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +26,27 @@ public class PokemonService {
         }
         repository.save(map(pokemonVistoRequest));
     }
+
+    public void atualizaCapturado(PokemonCapturadoRequest pokemonCapturadoRequest) {
+
+        if (!repository.existsById(pokemonCapturadoRequest.getNumero())) {
+            throw new EntityNotFoundException();
+        }
+        repository.save(map(pokemonCapturadoRequest));
+    }
+
+    public void atualizaVisto(PokemonVistoRequest pokemonVistoRequest) {
+        Pokemon pokemon =
+                repository
+                        .findById(pokemonVistoRequest.getNumero())
+                        .orElseThrow(EntityNotFoundException::new);
+
+        pokemon.setNome(pokemonVistoRequest.getNome());
+        pokemon.setImagemUrl(pokemonVistoRequest.getImagemUrl());
+        pokemon.setHabitat(pokemonVistoRequest.getHabitat());
+
+        repository.save(pokemon);
+    }
+
 
 }
