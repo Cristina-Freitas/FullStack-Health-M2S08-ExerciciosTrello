@@ -1,6 +1,7 @@
 package br.senai.lab365.pokedex.services;
 
 import br.senai.lab365.pokedex.dto.PokemonCapturadoRequest;
+import br.senai.lab365.pokedex.dto.PokemonResponse;
 import br.senai.lab365.pokedex.dto.PokemonVistoRequest;
 import br.senai.lab365.pokedex.models.Pokemon;
 import br.senai.lab365.pokedex.repositories.PokemonRepository;
@@ -54,5 +55,11 @@ public class PokemonService {
         } else {
             throw new EntityNotFoundException();
         }
+    }
+
+    public PokemonResponse busca(Integer numero) {
+        Pokemon pokemon = repository.findById(numero).orElseThrow(EntityNotFoundException::new);
+
+        return map(pokemon);
     }
 }

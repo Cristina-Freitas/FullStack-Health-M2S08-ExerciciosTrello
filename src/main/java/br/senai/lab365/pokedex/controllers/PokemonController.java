@@ -43,4 +43,10 @@ public class PokemonController {
         service.exclui(numero);
     }
 
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PokemonResponse busca(@PathVariable(name = "id") Integer numero) {
+        return service.busca(numero);
+    }
 }
